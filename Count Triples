@@ -1,0 +1,38 @@
+#include <iostream>
+#include <map>
+#include <fstream>
+#include <vector>
+
+using namespace std;
+long countTriplets(vector<long>& arr, long k) {
+	map<long long, long long> l, r;
+	long long  n = arr.size(), ans = 0;
+	for (int i = 0; i < n; i++)
+		r[arr[i]]++;
+	for (int i = 0; i < n; i++) {
+		r[arr[i]]--;
+		if (arr[i] % k == 0) {
+			ans += l[arr[i] / k] * r[arr[i] * k];
+		}
+		l[arr[i]]++;
+	}
+	return ans;
+
+}
+
+int main() {
+	ifstream F("Text.txt");
+	long n, k, ans = 0, a;
+	F >> n >> k;
+	vector<long> arr ;
+	for (int i = 0; i < n; i++) {
+		F >> a;
+		arr.push_back(a);
+	}
+
+	ans = countTriplets(arr, k);
+	std::cout << ans << endl;
+
+	F.close();
+	return 0;
+}
